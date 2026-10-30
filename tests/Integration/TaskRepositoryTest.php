@@ -4,6 +4,7 @@ namespace App\Tests\Integration;
 
 use App\Entity\Task;
 use App\Enum\CurrencyType;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -11,6 +12,9 @@ class TaskRepositoryTest extends KernelTestCase
 {
     private ?EntityManagerInterface $entityManager = null;
 
+    /**
+     * @throws Exception
+     */
     protected function setUp(): void
     {
         self::bootKernel();

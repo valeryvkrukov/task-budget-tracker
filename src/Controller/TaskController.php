@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Dto\CreateTaskDto;
 use App\Entity\Task;
 use App\Service\ExchangeRateProviderInterface;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,7 +36,7 @@ class TaskController extends AbstractController
         $currentRate = $this->exchangeRateProvider->getRateAgainstUsd($dto->currency);
 
         $task->setRateSnapshot([
-            'synced_at' => new \DateTimeImmutable()->format(\DateTimeInterface::ATOM),
+            'synced_at' => new DateTimeImmutable()->format(DateTimeInterface::ATOM),
             'rate' => $currentRate,
             'budget_in_usd' => round((float) $dto->budget * $currentRate, 2),
         ]);
